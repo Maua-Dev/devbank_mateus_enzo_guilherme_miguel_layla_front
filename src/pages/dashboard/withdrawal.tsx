@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import BillButton from '../../components/BillButton'
 import { authContext, TAuthProviderContext } from '../../functions/AuthProvider'
 
-interface TDepositInfo {
+interface TwithdrawalInfo {
   '2': number
   '5': number
   '10': number
@@ -12,8 +12,8 @@ interface TDepositInfo {
   '200': number
 }
 
-function DashboardDeposit() {
-  const [depositInfo, setDepositInfo] = useState<TDepositInfo>({
+function DashboardWithdrawal() {
+  const [withdrawalInfo, setwithdrawalInfo] = useState<TwithdrawalInfo>({
     '2': 0,
     '5': 0,
     '10': 0,
@@ -27,7 +27,7 @@ function DashboardDeposit() {
 
   return (
     <div className="w-full h-full flex-col items-start max-w-7xl mx-auto py-6 gap-y-4 flex">
-      <p className="text-gray-800 text-2xl font-semibold">Depósito</p>
+      <p className="text-gray-800 text-2xl font-semibold">Saque</p>
       <div className="w-full h-full max-h-16 bg-gray-300 rounded-sm px-4 flex flex-row items-center justify-between">
         <div className="w-fit h-full flex items-center gap-x-2 text-base text-gray-800">
           Saldo:{' '}
@@ -40,10 +40,10 @@ function DashboardDeposit() {
         </div>
         <div className="max-w-xs w-full h-full flex items-start flex-col justify-center">
           <div className="w-full flex justify-between">
-            Quantidade depositada:{' '}
+            Quantidade sacada:{' '}
             <span className="font-bold">
-              {depositInfo
-                ? Object.entries(depositInfo)
+              {withdrawalInfo
+                ? Object.entries(withdrawalInfo)
                     .reduce(
                       (total, [key, value]) => total + Number(key) * value,
                       0
@@ -58,12 +58,12 @@ function DashboardDeposit() {
           <div className="w-full flex justify-between">
             Quantidade final:{' '}
             <span className="font-bold">
-              {depositInfo
-                ? (
-                    Object.entries(depositInfo).reduce(
+              {withdrawalInfo
+                ? (userInfo?.current_balance! -
+                    Object.entries(withdrawalInfo).reduce(
                       (total, [key, value]) => total + Number(key) * value,
                       0
-                    ) + userInfo?.current_balance!
+                    )
                   ).toLocaleString('pt-BR', {
                     style: 'currency',
                     currency: 'BRL',
@@ -77,18 +77,18 @@ function DashboardDeposit() {
         </div>
       </div>
       <p className="text-gray-800 text-lg">
-        Selecione a quantidade de cada cédula que deseja depositar:
+        Selecione a quantidade de cada cédula que deseja sacar:
       </p>
       <div className="w-full h-full grid grid-cols-5 grid-rows-[16rem_16rem] items-start justify-start gap-4 py-2">
-        {Object.keys(depositInfo || {}).map((key) => (
+        {Object.keys(withdrawalInfo || {}).map((key) => (
           <div className="w-full h-full p-4 rounded-sm bg-gray-300 flex flex-col">
             <BillButton
               key={key}
               onClick={() => {
-                setDepositInfo((prevState) => ({
+                setwithdrawalInfo((prevState) => ({
                   ...prevState,
-                  [key as keyof TDepositInfo]:
-                    prevState[key as keyof TDepositInfo] + 1,
+                  [key as keyof TwithdrawalInfo]:
+                    prevState[key as keyof TwithdrawalInfo] + 1,
                 }))
               }}
             >
@@ -97,7 +97,7 @@ function DashboardDeposit() {
             <div className="w-full flex items-center justify-between text-gray-800 text-lg px-4">
               Quantidade:
               <span className="font-bold">
-                {depositInfo[key as keyof TDepositInfo]}
+                {withdrawalInfo[key as keyof TwithdrawalInfo]}
               </span>
             </div>
           </div>
@@ -111,11 +111,11 @@ function DashboardDeposit() {
           className="bg-gray-800 hover:bg-gray-600 text-white font-bold py-4 px-8 rounded transition-all duration-300 cursor-pointer"
           onClick={() => {}}
         >
-          Depositar
+          Sacar
         </button>
       </div>
     </div>
   )
 }
 
-export default DashboardDeposit
+export default DashboardWithdrawal
