@@ -1,11 +1,10 @@
-import React from 'react'
-import AuthProvider, { authContext } from '../../functions/AuthProvider'
-import {Outlet} from 'react-router';
+import { Outlet } from 'react-router'
+import AuthProvider from '../../functions/AuthProvider'
 
 export default function HomeLayout() {
   return (
     <AuthProvider>
-        <Outlet/>
+      <Outlet />
     </AuthProvider>
   )
 }

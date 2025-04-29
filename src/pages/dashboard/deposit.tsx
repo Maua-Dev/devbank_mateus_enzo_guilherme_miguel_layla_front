@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import BillButton from '../../components/BillButton'
-import { authContext, TAuthProviderContext } from '../../functions/AuthProvider'
+import { TUserProviderContext, userContext } from '../../functions/UserProvider'
 
 interface TDepositInfo {
   '2': number
@@ -23,7 +23,7 @@ function DashboardDeposit() {
     '200': 0,
   })
 
-  const { userInfo } = useContext(authContext) as TAuthProviderContext
+  const { userInfo } = useContext(userContext) as TUserProviderContext
 
   return (
     <div className="w-full h-full flex-col items-start max-w-7xl mx-auto py-6 gap-y-4 flex px-4 md:px-0">
