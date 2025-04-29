@@ -7,6 +7,7 @@ import DashboardManagement from './pages/dashboard/management'
 import Home from './pages/home'
 import HomeLayout from './pages/home/_layout'
 import { Children, Component } from 'react'
+import DashboardHome from './pages/dashboard/home'
 
 const routes = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const routes = createBrowserRouter([
       {
         index: true,
         Component: Dashboard,
+      },
+      {
+        path: "home", 
+        Component: DashboardHome, 
       },
       {
         path: 'management',
