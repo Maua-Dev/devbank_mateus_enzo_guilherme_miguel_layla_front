@@ -26,10 +26,10 @@ function DashboardDeposit() {
   const { userInfo } = useContext(authContext) as TAuthProviderContext
 
   return (
-    <div className="w-full h-full flex-col items-start max-w-7xl mx-auto py-6 gap-y-4 flex">
+    <div className="w-full h-full flex-col items-start max-w-7xl mx-auto py-6 gap-y-4 flex px-4 md:px-0">
       <p className="text-gray-800 text-2xl font-semibold">Depósito</p>
-      <div className="w-full h-full max-h-16 bg-gray-300 rounded-sm px-4 flex flex-row items-center justify-between">
-        <div className="w-fit h-full flex items-center gap-x-2 text-base text-gray-800">
+      <div className="w-full h-full md:max-h-16 bg-gray-300 rounded-sm px-4 py-4 md:py-0 flex md:flex-row flex-col md:items-center justify-between">
+        <div className="md:w-fit w-full h-full flex items-center justify-between md:justify-normal gap-x-2 text-base text-gray-800">
           Saldo:{' '}
           <span className="font-bold">
             {userInfo?.current_balance.toLocaleString('pt-BR', {
@@ -38,7 +38,7 @@ function DashboardDeposit() {
             })}
           </span>
         </div>
-        <div className="max-w-xs w-full h-full flex items-start flex-col justify-center">
+        <div className="md:max-w-xs w-full h-full flex items-start flex-col justify-center">
           <div className="w-full flex justify-between">
             Quantidade depositada:{' '}
             <span className="font-bold">
@@ -76,10 +76,10 @@ function DashboardDeposit() {
           </div>
         </div>
       </div>
-      <p className="text-gray-800 text-lg">
+      <p className="text-gray-800 text-base md:text-lg">
         Selecione a quantidade de cada cédula que deseja depositar:
       </p>
-      <div className="w-full h-full grid grid-cols-5 grid-rows-[16rem_16rem] items-start justify-start gap-4 py-2">
+      <div className="w-full h-full grid grid-cols-2 md:grid-cols-5 grid-rows-[repeat(4,14rem)] md:grid-rows-[repeat(2,16rem)] items-start justify-start gap-4 py-2">
         {Object.keys(depositInfo || {}).map((key) => (
           <div className="w-full h-full p-4 rounded-sm bg-gray-300 flex flex-col">
             <BillButton

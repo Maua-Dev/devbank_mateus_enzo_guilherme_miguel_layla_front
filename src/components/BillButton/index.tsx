@@ -13,7 +13,7 @@ function BillButton({
       onClick={onClick}
     >
       <div className="flex items-center justify-center gap-x-2">
-        <span className="text-4xl font-bold text-white">{children} R$</span>
+        <span className="md:text-4xl text-2xl font-bold text-white">{children} R$</span>
       </div>
     </button>
   )

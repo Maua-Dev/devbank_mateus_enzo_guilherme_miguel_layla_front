@@ -1,3 +1,4 @@
+import axios from 'axios'
 import {
   createContext,
   Dispatch,
@@ -30,15 +31,24 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Api call to fetch user information
-
-    const fetchedUserInfo: TUserInfo = {
-      name: 'John Doe',
-      agency: '0001',
-      acnumber: '12345-6',
-      current_balance: 1000.0,
+    async function fetchUserInfo() {
+      // TODO: Replace with your actual API endpoint
+      await axios.get('https://r2tcz6zsokynb72jb6o4ffd5nm0ryfyz.lambda-url.us-west-2.on.aws/').then((res) => {
+        const data = res.data
+        const userInfo: TUserInfo = {
+          name: data.name,
+          agency: data.agency,
+          acnumber: data.account,
+          current_balance: data.current_balance,
+        }
+        
+        setUserInfo(userInfo)
+      }).catch((error) => {
+        console.error('Error fetching user info:', error)
+      });
     }
 
-    setUserInfo(fetchedUserInfo)
+    fetchUserInfo()
   }, [])
 
   return (
