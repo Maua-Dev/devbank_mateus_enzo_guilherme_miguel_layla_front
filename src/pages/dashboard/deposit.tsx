@@ -1,5 +1,8 @@
+import axios from 'axios'
 import { useContext, useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
 import BillButton from '../../components/BillButton'
+import { authContext, TAuthProviderContext } from '../../functions/AuthProvider'
 import { TUserProviderContext, userContext } from '../../functions/UserProvider'
 
 interface TDepositInfo {
@@ -10,6 +13,11 @@ interface TDepositInfo {
   '50': number
   '100': number
   '200': number
+}
+
+interface TDepositResponse {
+  current_balance: number
+  timestamp: string
 }
 
 function DashboardDeposit() {
@@ -23,10 +31,44 @@ function DashboardDeposit() {
     '200': 0,
   })
 
-  const { userInfo } = useContext(userContext) as TUserProviderContext
+  const { apiUrl } = useContext(authContext) as TAuthProviderContext
+  const { userInfo, setUserInfo } = useContext(userContext) as TUserProviderContext
+
+  async function handleDeposit() {
+    await axios.post<TDepositResponse>(apiUrl + 'deposit', depositInfo).then((res) => {
+      if (res.status === 201) {
+        setDepositInfo({
+          '2': 0,
+          '5': 0,
+          '10': 0,
+          '20': 0,
+          '50': 0,
+          '100': 0,
+          '200': 0,
+        })
+        
+        setUserInfo((prevState) => 
+          prevState
+            ? { ...prevState, current_balance: res.data.current_balance }
+            : null
+        )
+
+        toast.success('Depósito realizado com sucesso!', {
+          position: 'top-right',
+          autoClose: 3000,
+        })
+      } else if (res.status === 403) {
+        toast.error('Erro ao realizar depósito!', {
+          position: 'top-right',
+          autoClose: 3000,
+        })
+      }
+    })
+  }
 
   return (
     <div className="w-full h-full flex-col items-start max-w-7xl mx-auto py-6 gap-y-4 flex px-4 md:px-0">
+      <ToastContainer />
       <p className="text-gray-800 text-2xl font-semibold">Depósito</p>
       <div className="w-full h-full md:max-h-16 bg-gray-300 rounded-sm px-4 py-4 md:py-0 flex md:flex-row flex-col md:items-center justify-between">
         <div className="md:w-fit w-full h-full flex items-center justify-between md:justify-normal gap-x-2 text-base text-gray-800">
@@ -109,7 +151,9 @@ function DashboardDeposit() {
         </button>
         <button
           className="bg-gray-800 hover:bg-gray-600 text-white font-bold py-4 px-8 rounded transition-all duration-300 cursor-pointer"
-          onClick={() => {}}
+          onClick={() => {
+            handleDeposit()
+          }}
         >
           Depositar
         </button>

@@ -5,7 +5,7 @@
 // import transacao from "./images/transacao.png";
 import { Link } from 'react-router'
 
-function DashboardManagement() {
+function DashboardManagement() {  
   return (
     <>
       <header className="flex h-1/5 w-full bg-gray-950 justify-between">
