@@ -1,3 +1,4 @@
+"use client" 
 import axios from 'axios'
 import {
   createContext,
@@ -18,6 +19,8 @@ export interface TUserInfo {
 export interface TAuthProviderContext {
   userInfo: TUserInfo | null
   setUserInfo: Dispatch<SetStateAction<TUserInfo | null>>
+  apiUrl: string
+  setApiUrl: Dispatch<SetStateAction<string>>
 }
 
 export const authContext = createContext<TAuthProviderContext | null>(null)
@@ -28,12 +31,14 @@ export const authContext = createContext<TAuthProviderContext | null>(null)
 
 function AuthProvider({ children }: { children: ReactNode }) {
   const [userInfo, setUserInfo] = useState<TUserInfo | null>(null)
+  const [apiUrl, setApiUrl] = useState<string>('');
 
   useEffect(() => {
+    console.log(apiUrl)
     // Api call to fetch user information
     async function fetchUserInfo() {
       // TODO: Replace with your actual API endpoint
-      await axios.get('https://r2tcz6zsokynb72jb6o4ffd5nm0ryfyz.lambda-url.us-west-2.on.aws/').then((res) => {
+      await axios.get(apiUrl).then((res) => {
         const data = res.data
         const userInfo: TUserInfo = {
           name: data.name,
@@ -49,10 +54,10 @@ function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     fetchUserInfo()
-  }, [])
+  }, [apiUrl, setApiUrl])
 
   return (
-    <authContext.Provider value={{ userInfo, setUserInfo }}>
+    <authContext.Provider value={{ userInfo, setUserInfo, apiUrl, setApiUrl }}>
       {children}
     </authContext.Provider>
   )

@@ -33,7 +33,7 @@ function DashboardManagement() {
           <section className="py-5">
                 <Link to= "/">
                     <div className="flex items-center justify-between">
-                        <img src="/depositar.png" alt="opção deposirar" className="hover:bg-blue-950"/>
+                        <img src="/depositar.png" alt="opção deposirar" className="hover:bg-blue-950 bg-gray-800"/>
                         <img src="/retirar.png"alt="opção retirar" className="hover:bg-blue-950" />
                         <img src="/transacao.png" alt="opção trasacao" className="hover:bg-blue-950"/>
                     </div>

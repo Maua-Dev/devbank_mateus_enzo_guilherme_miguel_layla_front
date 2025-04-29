@@ -4,10 +4,19 @@ import DashboardLayout from './pages/dashboard/_layout'
 import DashboardDeposit from './pages/dashboard/deposit'
 import DashboardWithdrawal from './pages/dashboard/withdrawal'
 import DashboardManagement from './pages/dashboard/management'
+import Home from './pages/home'
+import HomeLayout from './pages/home/_layout'
+import { Children, Component } from 'react'
 
 const routes = createBrowserRouter([
   {
-    path: '/',
+    Component: HomeLayout,
+    children: [
+      
+    ]
+  },
+  {
+    path: 'dashboard',
     Component: DashboardLayout,
     children: [
       {
@@ -15,7 +24,7 @@ const routes = createBrowserRouter([
         Component: Dashboard,
       },
       {
-        path: 'menagement',
+        path: 'management',
         Component: DashboardManagement,
       },
       {
@@ -25,6 +34,11 @@ const routes = createBrowserRouter([
       {
         path: 'withdrawal',
         Component: DashboardWithdrawal,
+      },
+      {
+        path: 'teste',
+        index: true,
+        Component: Home
       },
     ],
   },
