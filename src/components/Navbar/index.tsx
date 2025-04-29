@@ -1,9 +1,9 @@
 import { useContext } from 'react'
 import { Link } from 'react-router'
-import { authContext, TAuthProviderContext } from '../../functions/AuthProvider'
+import { TUserProviderContext, userContext } from '../../functions/UserProvider'
 
 function Navbar() {
-  const { userInfo } = useContext(authContext) as TAuthProviderContext
+  const { userInfo } = useContext(userContext) as TUserProviderContext
 
   if (!userInfo) {
     return null
