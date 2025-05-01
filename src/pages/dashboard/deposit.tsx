@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useContext, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import BillButton from '../../components/BillButton'
+import QuantityButton from '../../components/QuantityButton'
 import { authContext, TAuthProviderContext } from '../../functions/AuthProvider'
 import { TUserProviderContext, userContext } from '../../functions/UserProvider'
 
@@ -123,7 +124,7 @@ function DashboardDeposit() {
       </p>
       <div className="w-full h-full grid grid-cols-2 md:grid-cols-5 grid-rows-[repeat(4,14rem)] md:grid-rows-[repeat(2,16rem)] items-start justify-start gap-4 py-2">
         {Object.keys(depositInfo || {}).map((key) => (
-          <div className="w-full h-full p-4 rounded-sm bg-gray-300 flex flex-col">
+          <div className="w-full h-full p-4 rounded-sm bg-gray-300 flex flex-col gap-y-2">
             <BillButton
               key={key}
               onClick={() => {
@@ -136,12 +137,21 @@ function DashboardDeposit() {
             >
               {key}
             </BillButton>
-            <div className="w-full flex items-center justify-between text-gray-800 text-lg px-4">
-              Quantidade:
-              <span className="font-bold">
-                {depositInfo[key as keyof TDepositInfo]}
-              </span>
-            </div>
+            <QuantityButton quantity={depositInfo[key as keyof TDepositInfo]} onDecrease={() => {
+                if (depositInfo[key as keyof TDepositInfo] > 0) {
+                  setDepositInfo((prevState) => ({
+                    ...prevState,
+                    [key as keyof TDepositInfo]:
+                      prevState[key as keyof TDepositInfo] - 1,
+                  }))
+                }
+              }} onIncrease={() => {
+                setDepositInfo((prevState) => ({
+                  ...prevState,
+                  [key as keyof TDepositInfo]:
+                    prevState[key as keyof TDepositInfo] + 1,
+                }))
+              }} />
           </div>
         ))}
       </div>

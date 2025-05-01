@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useContext, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import BillButton from '../../components/BillButton'
+import QuantityButton from '../../components/QuantityButton'
 import { authContext, TAuthProviderContext } from '../../functions/AuthProvider'
 import { TUserProviderContext, userContext } from '../../functions/UserProvider'
 
@@ -124,7 +125,7 @@ function DashboardWithdrawal() {
       </p>
       <div className="w-full h-full grid grid-cols-2 md:grid-cols-5 grid-rows-[repeat(4,16rem)] md:grid-rows-[repeat(2,16rem)] items-start justify-start gap-4 py-2">
         {Object.keys(withdrawalInfo || {}).map((key) => (
-          <div className="w-full h-full p-4 rounded-sm bg-gray-300 flex flex-col">
+          <div className="w-full h-full p-4 rounded-sm bg-gray-300 flex flex-col gap-y-2">
             <BillButton
               key={key}
               onClick={() => {
@@ -137,12 +138,21 @@ function DashboardWithdrawal() {
             >
               {key}
             </BillButton>
-            <div className="w-full flex items-center justify-between text-gray-800 text-lg px-4">
-              Quantidade:
-              <span className="font-bold">
-                {withdrawalInfo[key as keyof TwithdrawalInfo]}
-              </span>
-            </div>
+            <QuantityButton quantity={withdrawalInfo[key as keyof TwithdrawalInfo]} onDecrease={() => {
+                if (withdrawalInfo[key as keyof TwithdrawalInfo] > 0) {
+                  setwithdrawalInfo((prevState) => ({
+                    ...prevState,
+                    [key as keyof TwithdrawalInfo]:
+                      prevState[key as keyof TwithdrawalInfo] - 1,
+                  }))
+                }
+              }} onIncrease={() => {
+                setwithdrawalInfo((prevState) => ({
+                  ...prevState,
+                  [key as keyof TwithdrawalInfo]:
+                    prevState[key as keyof TwithdrawalInfo] + 1,
+                }))
+              }} />
           </div>
         ))}
       </div>
