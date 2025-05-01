@@ -3,9 +3,16 @@
 // import depositar from "";
 // import retirar from "./images/retirar.png";
 // import transacao from "./images/transacao.png";
+import { useContext } from 'react'
 import { Link } from 'react-router'
+import { userContext, TUserProviderContext } from '../../functions/UserProvider'
 
-function DashboardManagement() {  
+function DashboardManagement() {
+  const {userInfo}= useContext(userContext) as TUserProviderContext
+
+  if (!userInfo){
+    return null
+  }
   return (
     <>
       <header className="flex h-1/5 w-full bg-gray-950 justify-between">
@@ -16,38 +23,39 @@ function DashboardManagement() {
             <span className="text-blue-500">Agência:</span>
             <span className="text-blue-500">Conta:</span>
           </div>
-          <div className="rounded-full bg-white flex justify-center items-center w-2/10 p-1 mr-2">
-            {/* <img src= alt="sibolo interrogacao" /> */}
-          </div>
         </section>
       </header>
       <main className="h-1/3 w-full px-10 py-10">
-        <section className="flex bg-[#0073E6]/25 p-3 rounded-md justify-between items-center">
+        <section className="flex bg-gray-300 p-3 rounded-md justify-between items-center">
           <div className="text-4xl p-1">O que você deseja fazer?</div>
-          <div className=" py-3  bg-[#0073E6]/30 h rounded-md flex items-start w-21/100">
-            <span className="text-xl p-3 text-white">Saldo atual:</span>
+          <div className=" py-3 bg-gray-800 h rounded-md flex items-start w-21/100">
+            <span className="text-xl p-3 text-white">Saldo atual: R${userInfo.current_balance}</span>
           </div>
         </section>
-        <section className="py-5">
-          <Link to="/">
-            <div className="flex items-center justify-between">
+        <section className="py-4">
+          <div className="flex items-center justify-between">
+            <div className="h-120 w-1/4 bg-gray-800 flex items-center justify-center rounded-xl hover:bg-gray-950 mb-2">
               <img
                 src="/depositar.png"
-                alt="opção deposirar"
-                className="hover:bg-blue-950 bg-gray-800"
+                alt="opção depositar"
+                className="py-10 px-15"
               />
+            </div>
+            <div className="h-120 w-1/4 bg-gray-800 flex items-center justify-center rounded-xl hover:bg-gray-950">
               <img
                 src="/retirar.png"
                 alt="opção retirar"
-                className="hover:bg-blue-950"
+                className="py-10 px-15"
               />
+            </div>
+            <div className="h-120 w-1/4 bg-gray-800 flex items-center justify-center rounded-xl hover:bg-gray-950">
               <img
                 src="/transacao.png"
                 alt="opção trasacao"
-                className="hover:bg-blue-950"
+                className="px-12"
               />
             </div>
-          </Link>
+          </div>
         </section>
       </main>
     </>
