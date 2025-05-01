@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router'
-import Dashboard from './pages/dashboard'
 import DashboardLayout from './pages/dashboard/_layout'
 import DashboardDeposit from './pages/dashboard/deposit'
 import DashboardManagement from './pages/dashboard/management'
@@ -23,10 +22,6 @@ const routes = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: Dashboard,
-      },
-      {
-        path: 'management',
         Component: DashboardManagement,
       },
       {
