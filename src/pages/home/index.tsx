@@ -28,25 +28,26 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="w-full h-screen bg-black flex items-center justify-center flex-col">
+    <div className="flex justify-center w-full h-full  bg-gray-950 min-h-screen overflow-hidden" >
+    <div className=" justify-center flex flex-col items-center bg-gray-600 w-full  h-[90-vh] shadow-lg rounded-lg">
+      <img src="/logo.png" alt="logo dev" />
       <input
         type="text"
-        className="text-white border border-white"
+        placeholder="Coloque aqui o end point da sua API"
         onChange={(e) => {
           setInicialApi(e.target.value)
         }}
+        className=" placeholder-white border border-black w-[90%] max-w-[900px] p-4 h-[70px] mt-5 text-base rounded-lg bg-gray-700 text-black opacity-100 text-center"
       />
-      <button
-        className="text-white bg-blue-400"
-        onClick={() => {
+      <button onClick={() => {
           if (verifyUrl(inicialApi)) {
             setApiUrl(inicialApi)
             navigate('/dashboard')
           }
-        }}
-      >
-        Enviar
+        }} className="mt-5 px-5 py-2 text-base cursor-pointer rounded-full w-[10%] bg-gray-950 text-white hover:bg-gray-900">
+        Entrar
       </button>
     </div>
+  </div>
   )
 }
