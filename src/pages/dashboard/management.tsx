@@ -24,28 +24,38 @@ function DashboardManagement() {
         </section>
         <section className="py-4">
           <div className="flex items-center justify-between px-3">
-            <div className="h-120 w-1/4 bg-gray-800 flex items-center justify-center rounded-xl hover:bg-gray-950 mb-2 duration-300 cursor-pointer">
-              <img
-                src="/depositar.png"
-                alt="opção depositar"
-                className="py-10 px-15"
-              />
+            <div className="h-120 w-1/4 bg-gray-800 flex items-center justify-center rounded-xl hover:bg-gray-600 mb-2 duration-300 transition-all cursor-pointer">
+              <Link to={`/dashboard/deposit`} >
+                <img
+                  src="/depositar.png"
+                  alt="opção depositar"
+                  className="py-10 px-15"
+                />
+              </Link>
             </div>
-            <div className="h-120 w-1/4 bg-gray-800 flex items-center justify-center rounded-xl hover:bg-gray-950 duration-300 cursor-pointer">
-              <img
-                src="/retirar.png"
-                alt="opção retirar"
-                className="py-10 px-15"
-                onClick={() => {<Link to={`dashboard/withdrawal`} ></Link>}}
-              />
+            <div className="h-120 w-1/4 bg-gray-800 flex items-center justify-center rounded-xl hover:bg-gray-600 duration-300 transition-all cursor-pointer">
+              <Link to={`/dashboard/withdrawal`} >
+                <img
+                  src="/retirar.png"
+                  alt="opção retirar"
+                  className="py-10 px-15"
+                />
+              </Link>
             </div>
-            <div className="h-120 w-1/4 bg-gray-800 flex items-center justify-center rounded-xl hover:bg-gray-950 duration-300 cursor-pointer">
-              <img
-                src="/transacao.png"
-                alt="opção trasacao"
-                className="px-12"
-              />
+            <div className="h-120 w-1/4 bg-gray-800 flex items-center justify-center rounded-xl hover:bg-gray-600 duration-300 cursor-pointer transition-all">
+              <Link to={``} >
+                <img
+                  src="/transacao.png"
+                  alt="opção trasacao"
+                  className="px-12"
+                />
+              </Link>
             </div>
+          </div>
+          <div className='flex justify-center jus py-7'>
+            <Link to={``} >
+              <button className='bg-gray-800 hover:bg-gray-600 duration-300 text-white py-4 px-8 rounded transition-all'>Voltar</button>
+            </Link>
           </div>
         </section>
       </main>
