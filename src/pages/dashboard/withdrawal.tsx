@@ -1,6 +1,11 @@
+import axios from 'axios'
 import { useContext, useState } from 'react'
+import { useNavigate } from 'react-router'
+import { toast, ToastContainer } from 'react-toastify'
 import BillButton from '../../components/BillButton'
+import QuantityButton from '../../components/QuantityButton'
 import { authContext, TAuthProviderContext } from '../../functions/AuthProvider'
+import { TUserProviderContext, userContext } from '../../functions/UserProvider'
 
 interface TwithdrawalInfo {
   '2': number
@@ -10,6 +15,11 @@ interface TwithdrawalInfo {
   '50': number
   '100': number
   '200': number
+}
+
+interface TWithdrawalResponse {
+  current_balance: number
+  timestamp: string
 }
 
 function DashboardWithdrawal() {
@@ -23,10 +33,45 @@ function DashboardWithdrawal() {
     '200': 0,
   })
 
-  const { userInfo } = useContext(authContext) as TAuthProviderContext
+  const { apiUrl } = useContext(authContext) as TAuthProviderContext
+  const { userInfo, setUserInfo } = useContext(userContext) as TUserProviderContext
+  const navigate = useNavigate()
+
+  async function handleWithdrawal() {
+    await axios.post<TWithdrawalResponse>(apiUrl + 'withdraw', withdrawalInfo).then((res) => {
+      if (res.status === 201) {
+        setwithdrawalInfo({
+          '2': 0,
+          '5': 0,
+          '10': 0,
+          '20': 0,
+          '50': 0,
+          '100': 0,
+          '200': 0,
+        })
+        
+        setUserInfo((prevState) => 
+          prevState
+            ? { ...prevState, current_balance: res.data.current_balance }
+            : null
+        )
+
+        toast.success('Saque realizado com sucesso!', {
+          position: 'top-right',
+          autoClose: 3000,
+        })
+      } else if (res.status === 403) {
+        toast.error('Erro ao realizar saque!', {
+          position: 'top-right',
+          autoClose: 3000,
+        })
+      }
+    })
+  }
 
   return (
     <div className="w-full h-full flex-col items-start max-w-7xl mx-auto py-6 gap-y-4 flex px-4 md:px-0">
+      <ToastContainer />
       <p className="text-gray-800 text-2xl font-semibold">Saque</p>
       <div className="w-full h-full md:max-h-16 bg-gray-300 rounded-sm px-4 py-4 md:py-0 flex md:flex-row flex-col md:items-center justify-between">
         <div className="md:w-fit w-full h-full flex items-center justify-between md:justify-normal gap-x-2 text-base text-gray-800">
@@ -59,7 +104,8 @@ function DashboardWithdrawal() {
             Quantidade final:{' '}
             <span className="font-bold">
               {withdrawalInfo
-                ? (userInfo?.current_balance! -
+                ? (
+                    userInfo?.current_balance! -
                     Object.entries(withdrawalInfo).reduce(
                       (total, [key, value]) => total + Number(key) * value,
                       0
@@ -81,7 +127,7 @@ function DashboardWithdrawal() {
       </p>
       <div className="w-full h-full grid grid-cols-2 md:grid-cols-5 grid-rows-[repeat(4,16rem)] md:grid-rows-[repeat(2,16rem)] items-start justify-start gap-4 py-2">
         {Object.keys(withdrawalInfo || {}).map((key) => (
-          <div className="w-full h-full p-4 rounded-sm bg-gray-300 flex flex-col">
+          <div className="w-full h-full p-4 rounded-sm bg-gray-300 flex flex-col gap-y-2">
             <BillButton
               key={key}
               onClick={() => {
@@ -94,22 +140,35 @@ function DashboardWithdrawal() {
             >
               {key}
             </BillButton>
-            <div className="w-full flex items-center justify-between text-gray-800 text-lg px-4">
-              Quantidade:
-              <span className="font-bold">
-                {withdrawalInfo[key as keyof TwithdrawalInfo]}
-              </span>
-            </div>
+            <QuantityButton quantity={withdrawalInfo[key as keyof TwithdrawalInfo]} onDecrease={() => {
+                if (withdrawalInfo[key as keyof TwithdrawalInfo] > 0) {
+                  setwithdrawalInfo((prevState) => ({
+                    ...prevState,
+                    [key as keyof TwithdrawalInfo]:
+                      prevState[key as keyof TwithdrawalInfo] - 1,
+                  }))
+                }
+              }} onIncrease={() => {
+                setwithdrawalInfo((prevState) => ({
+                  ...prevState,
+                  [key as keyof TwithdrawalInfo]:
+                    prevState[key as keyof TwithdrawalInfo] + 1,
+                }))
+              }} />
           </div>
         ))}
       </div>
       <div className="w-full h-full flex items-center justify-center gap-x-4 py-2">
-        <button className="bg-gray-600 hover:bg-gray-400 text-white font-bold py-4 px-8 rounded transition-all duration-300 cursor-pointer">
+        <button onClick={() => {
+          navigate(-1)
+        }} className="bg-gray-600 hover:bg-gray-400 text-white font-bold py-4 px-8 rounded transition-all duration-300 cursor-pointer">
           Voltar
         </button>
         <button
           className="bg-gray-800 hover:bg-gray-600 text-white font-bold py-4 px-8 rounded transition-all duration-300 cursor-pointer"
-          onClick={() => {}}
+          onClick={() => {
+            handleWithdrawal()
+          }}
         >
           Sacar
         </button>
