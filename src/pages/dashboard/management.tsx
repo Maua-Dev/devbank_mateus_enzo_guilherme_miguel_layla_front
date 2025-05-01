@@ -1,8 +1,3 @@
-// import logoDev from "./images/Logo_DevBank.png";
-// import interrogacao from "./images/pergunta de interrogação.png";
-// import depositar from "";
-// import retirar from "./images/retirar.png";
-// import transacao from "./images/transacao.png";
 import { useContext } from 'react'
 import { Link } from 'react-router'
 import { userContext, TUserProviderContext } from '../../functions/UserProvider'
