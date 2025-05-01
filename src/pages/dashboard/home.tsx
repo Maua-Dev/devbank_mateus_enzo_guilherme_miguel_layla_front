@@ -2,15 +2,15 @@ import React from 'react';
 import { Link } from 'react-router';
     function DashboardHome() {
         return (
-            <div className="flex justify-center w-full h-screen items-center mt-[7%] bg-white" >
-              <div className=" justify-center flex flex-col items-center bg-[#b3d9f8] w-full  h-7/10 shadow-lg rounded-lg">
+            <div className="flex justify-center w-full h-full  bg-gray-950 min-h-screen overflow-hidden" >
+              <div className=" justify-center flex flex-col items-center bg-gray-600 w-full  h-[90-vh] shadow-lg rounded-lg">
                 <img src="/logo.png" alt="logo dev" />
                 <input
                   type="text"
                   placeholder="Coloque aqui o end point da sua API"
-                  className=" border border-black w-[90%] max-w-[900px] p-4 h-[70px] mt-5 text-base rounded-lg bg-[#7dbef5] text-black opacity-100 text-center"
+                  className=" placeholder-white border border-black w-[90%] max-w-[900px] p-4 h-[70px] mt-5 text-base rounded-lg bg-gray-700 text-black opacity-100 text-center"
                 />
-                <button className="mt-5 px-5 py-2 text-base cursor-pointer rounded-full w-[10%] bg-blue-600 text-white hover:bg-blue-700">
+                <button className="mt-5 px-5 py-2 text-base cursor-pointer rounded-full w-[10%] bg-gray-950 text-white hover:bg-blue-700">
                   Entrar
                 </button>
               </div>
