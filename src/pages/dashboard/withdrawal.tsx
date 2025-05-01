@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useContext, useState } from 'react'
+import { useNavigate } from 'react-router'
 import { toast, ToastContainer } from 'react-toastify'
 import BillButton from '../../components/BillButton'
 import QuantityButton from '../../components/QuantityButton'
@@ -34,6 +35,7 @@ function DashboardWithdrawal() {
 
   const { apiUrl } = useContext(authContext) as TAuthProviderContext
   const { userInfo, setUserInfo } = useContext(userContext) as TUserProviderContext
+  const navigate = useNavigate()
 
   async function handleWithdrawal() {
     await axios.post<TWithdrawalResponse>(apiUrl + 'withdraw', withdrawalInfo).then((res) => {
@@ -157,7 +159,9 @@ function DashboardWithdrawal() {
         ))}
       </div>
       <div className="w-full h-full flex items-center justify-center gap-x-4 py-2">
-        <button className="bg-gray-600 hover:bg-gray-400 text-white font-bold py-4 px-8 rounded transition-all duration-300 cursor-pointer">
+        <button onClick={() => {
+          navigate(-1)
+        }} className="bg-gray-600 hover:bg-gray-400 text-white font-bold py-4 px-8 rounded transition-all duration-300 cursor-pointer">
           Voltar
         </button>
         <button

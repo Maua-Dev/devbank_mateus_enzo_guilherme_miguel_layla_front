@@ -6,7 +6,10 @@ function Navbar() {
   const { userInfo } = useContext(userContext) as TUserProviderContext
 
   if (!userInfo) {
-    return null
+    return (
+      <div className="w-full h-24 bg-gray-950 animate-pulse">
+      </div>
+    )
   }
 
   return (

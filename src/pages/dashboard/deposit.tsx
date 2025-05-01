@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useContext, useState } from 'react'
+import { MetaFunction, useNavigate } from 'react-router'
 import { toast, ToastContainer } from 'react-toastify'
 import BillButton from '../../components/BillButton'
 import QuantityButton from '../../components/QuantityButton'
@@ -21,6 +22,15 @@ interface TDepositResponse {
   timestamp: string
 }
 
+export const meta: MetaFunction = () => {
+  return [
+    {
+      title: 'Dashboard',
+      description: 'Dashboard do sistema de gerenciamento de contas',
+    },
+  ]
+}
+
 function DashboardDeposit() {
   const [depositInfo, setDepositInfo] = useState<TDepositInfo>({
     '2': 0,
@@ -34,6 +44,7 @@ function DashboardDeposit() {
 
   const { apiUrl } = useContext(authContext) as TAuthProviderContext
   const { userInfo, setUserInfo } = useContext(userContext) as TUserProviderContext
+  const navigate = useNavigate()
 
   async function handleDeposit() {
     await axios.post<TDepositResponse>(apiUrl + 'deposit', depositInfo).then((res) => {
@@ -156,7 +167,9 @@ function DashboardDeposit() {
         ))}
       </div>
       <div className="w-full h-full flex items-center justify-center gap-x-4 py-2">
-        <button className="bg-gray-600 hover:bg-gray-400 text-white font-bold py-4 px-8 rounded transition-all duration-300 cursor-pointer">
+        <button onClick={() => {
+          navigate(-1);
+        }} className="bg-gray-600 hover:bg-gray-400 text-white font-bold py-4 px-8 rounded transition-all duration-300 cursor-pointer">
           Voltar
         </button>
         <button
