@@ -3,6 +3,7 @@ import DashboardLayout from './pages/dashboard/_layout'
 import DashboardDeposit from './pages/dashboard/deposit'
 import DashboardManagement from './pages/dashboard/management'
 import DashboardWithdrawal from './pages/dashboard/withdrawal'
+import DashboardHome from './pages/dashboard/home'
 import Home from './pages/home'
 import HomeLayout from './pages/home/_layout'
 
@@ -12,7 +13,7 @@ const routes = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: Home,
+        Component: DashboardHome,
       },
     ],
   },
@@ -22,7 +23,7 @@ const routes = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: DashboardManagement,
+        Component: Dashboard,
       },
       {
         path: 'deposit',
