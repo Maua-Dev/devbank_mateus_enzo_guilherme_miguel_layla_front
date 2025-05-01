@@ -10,7 +10,7 @@ import { Link } from 'react-router';
                   placeholder="Coloque aqui o end point da sua API"
                   className=" placeholder-white border border-black w-[90%] max-w-[900px] p-4 h-[70px] mt-5 text-base rounded-lg bg-gray-700 text-black opacity-100 text-center"
                 />
-                <Link to ={}>
+                <Link to ={`/dashboard`}>
                   <button className="mt-5 px-5 py-2 text-base cursor-pointer rounded-full w-[10%] bg-gray-950 text-white hover:bg-gray-900">
                     Entrar
                   </button>
