@@ -1,9 +1,10 @@
 import { useContext } from 'react'
-import { Link } from 'react-router'
+import { Link, useNavigate,  } from 'react-router'
 import { TUserProviderContext, userContext } from '../../functions/UserProvider'
 
 function DashboardManagement() {
   const {userInfo}= useContext(userContext) as TUserProviderContext
+  const navigate = useNavigate()
 
   if (!userInfo){
     return null
@@ -47,10 +48,13 @@ function DashboardManagement() {
             </Link>
           </div>
         </div>
-        <div className='flex justify-center jus py-7'>
-          <Link to={`/`} >
-            <button className='bg-gray-800 hover:bg-gray-600 duration-300 text-white py-4 px-8 rounded transition-all'>Sair</button>
-          </Link>
+        <div className='flex justify-center jus py-7'> 
+            <button className='bg-gray-800 hover:bg-gray-600 duration-300 text-white py-4 px-8 rounded transition-all' onClick={() => {
+              localStorage.removeItem('apiUrl');
+              navigate('/');
+            }}>
+              Sair
+            </button>
         </div>
       </section>
     </main>
