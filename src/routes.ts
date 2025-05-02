@@ -23,7 +23,7 @@ const routes = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: Dashboard,
+        Component: DashboardManagement,
       },
       {
         path: 'deposit',

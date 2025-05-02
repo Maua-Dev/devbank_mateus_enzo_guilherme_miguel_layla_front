@@ -48,7 +48,7 @@ function DashboardManagement() {
           </div>
         </div>
         <div className='flex justify-center jus py-7'>
-          <Link to={``} >
+          <Link to={`/`} >
             <button className='bg-gray-800 hover:bg-gray-600 duration-300 text-white py-4 px-8 rounded transition-all'>Sair</button>
           </Link>
         </div>
