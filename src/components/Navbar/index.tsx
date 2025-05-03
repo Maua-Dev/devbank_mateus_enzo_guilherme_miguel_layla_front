@@ -7,7 +7,7 @@ function Navbar() {
 
   if (!userInfo) {
     return (
-      <div className="w-full h-24 bg-gray-950 animate-pulse">
+      <div className="w-full h-40 bg-gray-950 animate-pulse">
       </div>
     )
   }
