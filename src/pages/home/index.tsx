@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <div className="flex justify-center w-full h-full  bg-gray-950 min-h-screen overflow-hidden" >
     <div className=" justify-center flex flex-col items-center bg-gray-600 w-full  h-[90-vh] shadow-lg rounded-lg">
-      <img src="/logo.png" alt="logo dev" />
+      <img src="/logo.png" alt="logo dev" className='md:w-sm w-3xs'/>
       <input
         type="text"
         placeholder="Coloque aqui o end point da sua API"
@@ -44,7 +44,7 @@ export default function Home() {
             setApiUrl(inicialApi)
             navigate('/dashboard')
           }
-        }} className="mt-5 px-5 py-2 text-base cursor-pointer rounded-full w-[10%] bg-gray-950 text-white hover:bg-gray-900">
+        }} className="mt-5 px-10 py-2 text-base cursor-pointer rounded-full bg-gray-950 text-white hover:bg-gray-900">
         Entrar
       </button>
     </div>
