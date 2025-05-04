@@ -7,9 +7,11 @@ function DashboardLayout() {
   return (
     <AuthProvider>
       <UserProvider>
-        <main className="w-full h-full min-h-screen bg-gray-100">
+        <main className="w-full min-h-svh bg-gray-100">
           <Navbar />
-          <Outlet />
+          <div className='w-full h-full'>
+            <Outlet />
+          </div>
         </main>
       </UserProvider>
     </AuthProvider>
