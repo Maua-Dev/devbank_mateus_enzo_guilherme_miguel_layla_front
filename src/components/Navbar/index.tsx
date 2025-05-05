@@ -7,13 +7,13 @@ function Navbar() {
 
   if (!userInfo) {
     return (
-      <div className="w-full h-40 bg-gray-950 animate-pulse">
+      <div className="w-full h-24 md:h-40 bg-gray-950 animate-pulse">
       </div>
     )
   }
 
   return (
-    <div className="w-full h-40 bg-gray-950">
+    <div className="w-full h-24 md:h-40 bg-gray-950">
       <div className="flex items-center justify-between px-4 max-w-7xl mx-auto h-full">
         <Link to="/">
           <img src="/logo.png" alt="Logo" className="md:h-10 h-6" />

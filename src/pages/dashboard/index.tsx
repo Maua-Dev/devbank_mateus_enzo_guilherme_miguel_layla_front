@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Link, useNavigate,  } from 'react-router'
+import { Link, useNavigate, } from 'react-router'
 import { TUserProviderContext, userContext } from '../../functions/UserProvider'
 
 function DashboardManagement() {
@@ -13,9 +13,12 @@ function DashboardManagement() {
   return (
     <main className="w-full h-full flex-col items-start max-w-7xl mx-auto py-6 gap-y-4 flex px-4 md:px-0">
       <section className="flex bg-gray-300 p-3 rounded-md justify-between items-center w-full">
-        <div className="text-2xl p-1">O que você deseja fazer?</div>
-        <div className=" py-3 bg-gray-800 h rounded-md flex items-start w-21/100">
-          <span className="text-xl p-3 text-white">Saldo atual: R${userInfo.current_balance}</span>
+        <div className="text-lg md:text-2xl p-1">O que você deseja fazer?</div>
+        <div className=" py-3 bg-gray-800 rounded-md flex items-start">
+          <span className="text-md p-3 text-white">Saldo atual: {userInfo.current_balance.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          })}</span>
         </div>
       </section>
       <section className="py-4 w-full">
